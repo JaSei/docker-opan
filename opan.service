@@ -1,0 +1,14 @@
+[Unit]
+Description=opan container
+Author=Avast Viruslab Systems
+After=docker.service
+
+[Service]
+TimeoutStartSec=0
+ExecStartPre=-/usr/bin/docker kill opan
+ExecStartPre=-/usr/bin/docker rm opan
+ExecStartPre=/usr/bin/docker pull avastsoftware/opan
+ExecStart=/usr/bin/docker run --name opan -v /var/lib/opan:/opan -p 8030:8030 avastsoftware/opan
+
+[Install]
+WantedBy=multi-user.target
